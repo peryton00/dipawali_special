@@ -1,0 +1,49 @@
+/* ═══════════════ diya component ═══════════════ */
+.diya{position:relative; width:clamp(64px,9vw,96px); aspect-ratio:1/1.05; cursor:pointer;
+  border:none; background:none; padding:0; display:flex; flex-direction:column; align-items:center;
+  transition:transform .3s var(--ease)}
+.diya:hover{transform:translateY(-5px) scale(1.04)}
+.diya:active{transform:scale(.96)}
+.diya .d-glow{position:absolute; inset:-38% -30%; border-radius:50%; pointer-events:none;
+  background:radial-gradient(closest-side,rgba(255,123,0,.34),rgba(255,183,3,.14) 45%,transparent 72%);
+  opacity:0; transition:opacity .6s var(--ease)}
+.diya.lit .d-glow{opacity:1; animation:glowFlicker 2.8s ease-in-out infinite}
+@keyframes glowFlicker{0%,100%{opacity:.72} 50%{opacity:1}}
+
+.diya svg{position:relative; z-index:2; width:100%; height:auto; overflow:visible}
+.diya .d-flame{transform-origin:50% 112px; transform:scale(.05); opacity:0; transition:transform .55s var(--ease), opacity .4s}
+.diya.lit .d-flame{transform:scale(1); opacity:1; animation:flameFlicker 1.7s ease-in-out infinite}
+@keyframes flameFlicker{
+  0%,100%{transform:scale(1) rotate(-1.6deg)}
+  22%{transform:scale(1.06,.94) rotate(1.8deg)}
+  48%{transform:scale(.95,1.07) rotate(-2.4deg)}
+  74%{transform:scale(1.04,.97) rotate(1.2deg)}
+}
+.diya.lit:hover .d-flame{animation-duration:.9s}
+
+/* ── diya oil sheen (visible only when lit) ── */
+.diya .d-oil{opacity:0; transition:opacity .6s var(--ease)}
+.diya.lit .d-oil{opacity:1}
+
+/* diya grid */
+.diya-grid{display:flex; flex-wrap:wrap; justify-content:center; gap:clamp(.6rem,2.2vw,1.4rem);
+  padding:1.6rem; border-radius:24px; max-width:900px; margin:0 auto;
+  background:
+    radial-gradient(80% 60% at 50% 110%, rgba(255,123,0,.13), transparent 70%),
+    rgba(16,22,55,.35);
+  border:1px solid rgba(255,248,231,.07); min-height:200px}
+.diya-counter{margin-left:auto; align-self:center; color:var(--ink-dim); font-size:.86rem;
+  background:var(--glass); border:1px solid var(--glass-brd); padding:.5rem 1rem; border-radius:99px}
+.diya-counter strong{color:var(--gold); font-size:1.05rem; margin-left:.25rem}
+
+/* toolbar */
+.diya-toolbar{display:flex; flex-wrap:wrap; gap:.7rem; align-items:center; justify-content:center;
+  max-width:900px; margin:0 auto 1.6rem}
+
+/* hero diya row uses smaller diyas */
+.hero-diya-row .diya{width:clamp(46px,6vw,70px)}
+
+/* night-mode diya strip */
+#nightDiyas{position:absolute; left:0; right:0; bottom:calc(6px + env(safe-area-inset-bottom));
+  display:flex; justify-content:center; gap:clamp(.35rem,1.6vw,1.1rem); flex-wrap:wrap; padding:0 .6rem; z-index:5}
+#nightDiyas .diya{width:clamp(44px,6.4vw,84px)}

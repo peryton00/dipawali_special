@@ -1,0 +1,86 @@
+/* ═══════════════ night mode ═══════════════ */
+#nightMode{position:fixed; inset:0; z-index:800; overflow:hidden; touch-action:manipulation;
+  background:linear-gradient(180deg,#05081a 0%,#080B24 42%,#0d1330 72%,#141a3e 100%)}
+#nightMode[hidden]{display:none}
+#nightMode.nm-enter{animation:nmIn 1.5s var(--ease) both}
+@keyframes nmIn{from{opacity:0} to{opacity:1}}
+
+/* golden light veil on entry/exit */
+#nightVeil{position:absolute; inset:0; z-index:50; pointer-events:none; opacity:0;
+  background:radial-gradient(circle at 50% 60%, rgba(255,209,102,.55), rgba(255,123,0,.25) 34%, transparent 68%)}
+#nightVeil.spread{animation:veilSpread 1.6s var(--ease) forwards}
+#nightVeil.spread-out{animation:veilSpreadOut 1.2s var(--ease) forwards}
+@keyframes veilSpread{0%{opacity:0; transform:scale(.1)} 45%{opacity:1} 100%{opacity:0; transform:scale(2.4)}}
+@keyframes veilSpreadOut{0%{opacity:0; transform:scale(2.2)} 35%{opacity:.9} 100%{opacity:0; transform:scale(.05)}}
+
+/* sky glow */
+#nightSky{position:absolute; inset:0;
+  background:
+    radial-gradient(900px 480px at 78% 8%, rgba(255,77,141,.10), transparent 65%),
+    radial-gradient(1100px 560px at 22% 16%, rgba(255,183,3,.12), transparent 65%),
+    radial-gradient(70% 42% at 50% 106%, rgba(255,123,0,.28), transparent 72%);
+  animation:skyPulse 9s ease-in-out infinite}
+@keyframes skyPulse{0%,100%{opacity:.9} 50%{opacity:1}}
+
+/* architecture */
+#nightArch{position:absolute; left:0; right:0; bottom:0; height:30vh; min-height:150px; z-index:4}
+#nightArch svg{width:100%; height:100%}
+
+/* center greeting */
+.night-center{position:absolute; left:50%; top:34%; transform:translate(-50%,-50%); z-index:6;
+  text-align:center; pointer-events:none; padding:0 1.4rem; transition:opacity .8s}
+.night-center h2{font-family:var(--font-hindi); color:var(--gold);
+  font-size:clamp(2rem,7vw,4.4rem); text-shadow:0 0 30px rgba(255,209,102,.7), 0 0 90px rgba(255,123,0,.4);
+  animation:nightGlow 4s ease-in-out infinite}
+.night-center p{font-family:var(--font-head); color:var(--warm); letter-spacing:.3em; text-transform:uppercase;
+  font-size:clamp(.72rem,2vw,1rem); margin-top:.6rem; opacity:.85}
+@keyframes nightGlow{0%,100%{text-shadow:0 0 30px rgba(255,209,102,.6),0 0 90px rgba(255,123,0,.35)}
+  50%{text-shadow:0 0 44px rgba(255,242,166,.95),0 0 120px rgba(255,123,0,.55)}}
+
+/* floating wishes */
+#wishesLayer{position:absolute; inset:0; z-index:8; pointer-events:none; overflow:hidden}
+.f-wish{position:absolute; white-space:nowrap; font-weight:400; color:var(--flame);
+  text-shadow:0 0 14px rgba(255,242,166,.75), 0 0 40px rgba(255,183,3,.4);
+  font-size:clamp(.8rem,2.4vw,1.15rem); animation:wishFloat linear forwards; will-change:transform,opacity}
+.f-wish.hindi{font-family:var(--font-hindi)}
+.f-wish.user{color:#FFE9A8; font-weight:600; letter-spacing:.05em}
+
+/* night controls */
+.night-controls{position:absolute; left:50%; bottom:calc(110px + env(safe-area-inset-bottom));
+  transform:translateX(-50%); z-index:20; display:flex; flex-wrap:wrap; gap:.5rem; justify-content:center;
+  max-width:min(94vw,760px); padding:.6rem; border-radius:20px;
+  background:rgba(8,11,36,.66); border:1px solid var(--glass-brd);
+  backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+  box-shadow:0 14px 44px rgba(0,0,0,.55)}
+.night-controls .nm-group{display:flex; flex-wrap:wrap; gap:.4rem; align-items:center;
+  padding-right:.5rem; border-right:1px solid rgba(255,248,231,.12)}
+.night-controls .nm-group:last-child{border-right:none; padding-right:0}
+.nm-btn{padding:.5rem .9rem; font-size:.78rem}
+.nm-btn.on{border-color:var(--gold); color:var(--gold)}
+.nm-slider{display:flex; align-items:center; gap:.4rem; font-size:.72rem; color:var(--ink-dim);
+  padding:.1rem .4rem; white-space:nowrap}
+.nm-slider input{appearance:none; width:74px; height:5px; border-radius:99px; cursor:pointer;
+  background:linear-gradient(90deg,var(--bright-gold),var(--orange)); outline:none}
+.nm-slider input::-webkit-slider-thumb{appearance:none; width:15px; height:15px; border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#FFF2A6,#FFB703); border:1px solid #fff3; cursor:grab}
+.nm-slider input::-moz-range-thumb{width:15px; height:15px; border-radius:50%; border:1px solid #fff3; background:#FFB703; cursor:grab}
+
+/* exit pinned top */
+#nmExit{position:absolute; top:calc(14px + env(safe-area-inset-top)); right:14px; z-index:22; font-size:.82rem}
+
+/* wish bar */
+.nm-wish-bar{position:absolute; left:50%; bottom:calc(16px + env(safe-area-inset-bottom)); transform:translateX(-50%);
+  z-index:24; display:flex; gap:.5rem; width:min(94vw,560px); padding:.55rem; border-radius:99px;
+  background:rgba(8,11,36,.85); border:1px solid var(--glass-brd);
+  backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px)}
+.nm-wish-bar[hidden]{display:none}
+.nm-wish-bar input{flex:1; background:none; border:none; color:var(--warm); font-family:inherit;
+  font-size:.9rem; padding:.4rem .8rem; min-width:0}
+.nm-wish-bar input:focus{outline:none}
+.nm-wish-bar .btn{padding:.5rem 1rem; font-size:.8rem; white-space:nowrap}
+
+/* hint */
+.night-hint{position:absolute; top:calc(18px + env(safe-area-inset-top)); left:50%; transform:translateX(-50%);
+  z-index:19; color:var(--ink-dim); font-size:.74rem; letter-spacing:.18em; text-transform:uppercase;
+  opacity:0; animation:hintFade 9s ease 1.6s forwards; pointer-events:none; text-align:center; padding:0 1rem}
+@keyframes hintFade{0%{opacity:0} 12%{opacity:.85} 80%{opacity:.85} 100%{opacity:0}}

@@ -1,0 +1,62 @@
+/* ═══════════════ responsive ═══════════════ */
+@media (max-width:1023px){
+  .greet-wrap,.rangoli-wrap{grid-template-columns:1fr}
+  .rangoli-canvas-frame{order:-1}
+  #navLinks{
+    position:absolute; top:calc(100% + 10px); right:0; flex-direction:column; align-items:stretch;
+    width:220px; padding:.6rem; border-radius:18px; gap:.15rem;
+    background:rgba(8,11,36,.94); border:1px solid var(--glass-brd);
+    backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+    box-shadow:0 18px 50px rgba(0,0,0,.55);
+    opacity:0; visibility:hidden; transform:translateY(-8px); transition:.3s var(--ease)}
+  #navLinks.open{opacity:1; visibility:visible; transform:translateY(0)}
+  #navLinks a,#navLinks .nav-night{display:block; width:100%; text-align:center}
+  #navToggle{display:block}
+}
+
+@media (max-width:640px){
+  :root{--nav-h:58px}
+  .hero{padding-top:calc(var(--nav-h) + 2.4rem); min-height:100svh}
+  .hero-stats{gap:1.2rem}
+  .stat-num{font-size:1.3rem}
+  .scroll-cue{bottom:calc(6.4rem + env(safe-area-inset-bottom))}
+  .section{padding:3.4rem 1.1rem}
+  .diya-counter{margin:0 auto}
+  .diya-toolbar{gap:.5rem}
+  .diya-toolbar .btn{padding:.55rem 1rem; font-size:.8rem}
+  .fw-panel{padding:.9rem}
+  .fw-panel-row{gap:.55rem}
+  .btn{padding:.6rem 1.15rem; font-size:.84rem}
+  .rangoli-actions{grid-template-columns:1fr 1fr}
+  .rangoli-canvas-frame{padding:.6rem}
+  .swatches{grid-template-columns:repeat(6,1fr); gap:.4rem}
+  .lantern-card{padding:1.4rem}
+  .greet-form{padding:1.3rem}
+  .audio-dock{right:10px; bottom:calc(10px + env(safe-area-inset-bottom))}
+  .toast{bottom:calc(70px + env(safe-area-inset-bottom)); font-size:.78rem; padding:.55rem 1rem}
+  .shortcut-grid{grid-template-columns:1fr}
+  /* night mode mobile */
+  .night-controls{bottom:calc(84px + env(safe-area-inset-bottom)); gap:.35rem; padding:.45rem}
+  .night-controls .nm-group{border-right:none; width:100%; justify-content:center}
+  .nm-btn{padding:.45rem .7rem; font-size:.72rem}
+  .nm-slider input{width:60px}
+  .night-center{top:26%}
+  #nmExit{top:calc(10px + env(safe-area-inset-top)); right:10px}
+}
+
+@media (max-width:380px){
+  .hero-title{font-size:2.3rem}
+  .night-controls{bottom:calc(118px + env(safe-area-inset-bottom))}
+}
+
+/* landscape phones: keep controls clear of short viewport */
+@media (max-height:480px) and (orientation:landscape){
+  .night-controls{bottom:8px; max-width:98vw}
+  .night-center{top:44%}
+  #nightDiyas{bottom:130px}
+}
+
+/* hover-capable devices: magic cursor sparkle enabled via JS */
+@media (hover:none){
+  .fw-hint{visibility:hidden}
+}

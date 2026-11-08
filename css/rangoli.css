@@ -1,0 +1,31 @@
+/* ═══════════════ rangoli studio ═══════════════ */
+.rangoli-wrap{display:grid; grid-template-columns:minmax(240px,320px) 1fr; gap:1.6rem; align-items:start}
+.rangoli-tools{padding:1.4rem; display:flex; flex-direction:column; gap:1.1rem}
+.swatches{display:grid; grid-template-columns:repeat(6,1fr); gap:.5rem}
+.swatch{aspect-ratio:1; border-radius:50%; cursor:pointer; border:2px solid transparent;
+  transition:.22s; position:relative}
+.swatch:hover{transform:scale(1.12)}
+.swatch[aria-checked="true"]{border-color:var(--warm); box-shadow:0 0 0 3px rgba(255,248,231,.25), 0 0 16px rgba(255,209,102,.5)}
+.rangoli-controls{display:flex; flex-direction:column; gap:.8rem}
+.rangoli-controls label{display:flex; flex-direction:column; gap:.3rem; font-size:.74rem;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--gold)}
+.rangoli-controls input[type="range"]{appearance:none; height:6px; border-radius:99px; cursor:pointer;
+  background:linear-gradient(90deg,var(--bright-gold),var(--pink)); outline:none}
+.rangoli-controls input[type="range"]::-webkit-slider-thumb{appearance:none; width:18px; height:18px; border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#FFF2A6,#FFB703); border:1px solid #fff3; box-shadow:0 2px 8px rgba(0,0,0,.5); cursor:grab}
+.rangoli-controls input[type="range"]::-moz-range-thumb{width:18px; height:18px; border-radius:50%; border:1px solid #fff3;
+  background:#FFB703; cursor:grab}
+.rangoli-controls select{background:var(--navy); color:var(--warm); border:1px solid var(--glass-brd);
+  border-radius:8px; padding:.4rem .5rem; font-family:inherit; cursor:pointer}
+.rangoli-actions{display:grid; grid-template-columns:1fr 1fr; gap:.5rem}
+.rangoli-actions .btn{padding:.55rem .4rem; font-size:.8rem; text-align:center}
+
+.rangoli-canvas-frame{padding:1rem; display:flex; justify-content:center; align-items:center;
+  background:
+    radial-gradient(60% 55% at 50% 46%, rgba(255,123,0,.08), transparent 70%),
+    linear-gradient(160deg,rgba(36,16,68,.35),rgba(16,22,55,.55))}
+#rangoliCanvas{border-radius:16px; touch-action:none; cursor:crosshair;
+  background:radial-gradient(circle at 50% 42%, #101637 0%, #0a0e26 70%, #070b1f 100%);
+  box-shadow:inset 0 0 60px rgba(0,0,0,.6), 0 12px 40px rgba(0,0,0,.4);
+  max-width:100%; height:auto}
+#rangoliCanvas.drawing{cursor:none}

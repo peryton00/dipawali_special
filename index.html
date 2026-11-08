@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="An immersive, cinematic Diwali celebration — light diyas, launch fireworks, create rangoli, release sky lanterns and enter Diwali Night Mode.">
+<meta name="theme-color" content="#080B24">
+<title>Dīpāvalī — An Immersive Festival of Lights</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23101637'/%3E%3Cpath d='M32 14c-4 8-9 12-9 20a9 9 0 0018 0c0-8-5-12-9-20z' fill='%23FFD166'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500;600&family=Tiro+Devanagari+Hindi&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/animations.css">
+<link rel="stylesheet" href="css/fireworks.css">
+<link rel="stylesheet" href="css/diya.css">
+<link rel="stylesheet" href="css/rangoli.css">
+<link rel="stylesheet" href="css/night-mode.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+<!-- ══════════════════ CINEMATIC INTRO ══════════════════ -->
+<div id="intro" role="dialog" aria-label="Intro" aria-modal="true">
+  <canvas id="introCanvas" aria-hidden="true"></canvas>
+  <div class="intro-inner">
+    <div class="intro-diya" aria-hidden="true">
+      <svg viewBox="0 0 220 200" width="190" height="172">
+        <defs>
+          <radialGradient id="introGlow" cx="50%" cy="70%" r="60%">
+            <stop offset="0%" stop-color="#FFF2A6" stop-opacity=".9"/>
+            <stop offset="55%" stop-color="#FF7B00" stop-opacity=".35"/>
+            <stop offset="100%" stop-color="#FF7B00" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="introClay" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#c47a3d"/><stop offset="45%" stop-color="#8a4d26"/>
+            <stop offset="100%" stop-color="#5c3317"/>
+          </linearGradient>
+          <linearGradient id="introOil" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#ffb703"/><stop offset="50%" stop-color="#ffd166"/><stop offset="100%" stop-color="#ffb703"/>
+          </linearGradient>
+          <filter id="introBlur"><feGaussianBlur stdDeviation="2.4"/></filter>
+        </defs>
+        <ellipse cx="110" cy="178" rx="72" ry="10" fill="#000" opacity=".35"/>
+        <ellipse cx="110" cy="150" rx="95" ry="52" fill="url(#introGlow)"/>
+        <path d="M34 118 Q110 168 186 118 L176 156 Q110 196 44 156 Z" fill="url(#introClay)"/>
+        <ellipse cx="110" cy="118" rx="76" ry="17" fill="#3d2010"/>
+        <ellipse cx="110" cy="116" rx="62" ry="12" fill="url(#introOil)"/>
+        <g id="introFlame" filter="url(#introBlur)">
+          <path d="M110 60 Q126 92 110 112 Q94 92 110 60Z" fill="#FFF2A6" opacity=".95"/>
+          <path d="M110 76 Q120 96 110 110 Q100 96 110 76Z" fill="#FFD166"/>
+          <path d="M110 90 Q115 102 110 110 Q105 102 110 90Z" fill="#FF7B00"/>
+        </g>
+      </svg>
+    </div>
+    <h1 class="intro-hindi" lang="hi">शुभ दीपावली</h1>
+    <div class="intro-divider" aria-hidden="true"><span>✦</span></div>
+    <h2 class="intro-english">Happy&nbsp;Diwali</h2>
+    <p class="intro-sub">The festival of lights awaits…</p>
+    <div class="intro-actions">
+      <button id="introEnter" class="btn btn-gold btn-lg" type="button">✦ Enter Celebration</button>
+      <button id="introSkip" class="btn btn-ghost" type="button">Skip Intro</button>
+    </div>
+    <button id="introSound" class="intro-sound" type="button" aria-pressed="false" aria-label="Toggle intro sound">
+      <span class="intro-sound-off" aria-hidden="true">🔇 Sound Off</span>
+      <span class="intro-sound-on" aria-hidden="true">🔊 Sound On</span>
+    </button>
+  </div>
+</div>
+
+<!-- ══════════════════ GLOBAL BACKGROUND LAYERS ══════════════════ -->
+<div id="bgLayers" aria-hidden="true">
+  <div id="cityLayer" class="bg-city">
+    <svg id="citySvg" viewBox="0 0 1600 300" preserveAspectRatio="none">
+      <!-- distant city & temples silhouette; opacity handled by class -->
+      <g id="cityScape" opacity="0.55">
+        <path d="M0 300V190h30v-24h12v-40h10v40h14v70h18v-90l16-22 16 22v90h20v-60h30v-14h14v14h6v60h26V120h10l8-30 8 30h10v180h24v-70h28v-20h12v20h8v70h30V96l18-26 18 26v70h8v-96h10v-30h6v30h10v96h22v-64h26v-18h12v18h6v64h28v-80l16-20 16 20v80h24v-50h34v-16h10v16h8v50h24v-84h10v-36h8v36h10v84h22v-60h26v-14h12v14h6v60h30v-70h20v-22h10v22h8v70h26V128h10l8-26 8 26h10v172h22v-66h28v-18h12v18h6v66h26v-96l18-24 18 24v96h24v-56h34v-16h10v16h8v56h26v-76h20v-20h10v20h8v76h28v-70h10v-30h8v30h10v70h20v-60h30v-14h12v14h6v60h26V118l18-24 18 24v182h18v-76h28v-18h12v18h6v76h28V160h10v-26h8v26h10v140z" fill="#060a1c"/>
+        <!-- temple domes -->
+        <g fill="#04081a">
+          <path d="M320 300v-96q0-40 40-60 40 20 40 60v96z"/>
+          <path d="M360 144l-6-44q6-14 6-26 0 12 6 26z"/>
+          <path d="M960 300v-88q0-36 36-54 36 18 36 54v88z"/>
+          <path d="M996 158l-6-40q6-12 6-24 0 12 6 24z"/>
+          <path d="M1380 300v-92q0-38 38-56 38 18 38 56v92z"/>
+          <path d="M1418 156l-6-42q6-13 6-25 0 12 6 25z"/>
+        </g>
+        <!-- minarets -->
+        <g fill="#060a1c">
+          <rect x="740" y="120" width="8" height="180"/><path d="M744 106l-12 14h24z"/>
+          <rect x="770" y="140" width="7" height="160"/><path d="M773 128l-10 12h20z"/>
+          <rect x="1240" y="130" width="8" height="170"/><path d="M1244 116l-12 14h24z"/>
+        </g>
+        <g fill="#FFD166" opacity=".8">
+          <circle cx="60" cy="210" r="2"/><circle cx="130" cy="230" r="2"/><circle cx="200" cy="200" r="2"/>
+          <circle cx="280" cy="240" r="2"/><circle cx="360" cy="170" r="2"/><circle cx="460" cy="250" r="2"/>
+          <circle cx="540" cy="220" r="2"/><circle cx="620" cy="260" r="2"/><circle cx="700" cy="200" r="2"/>
+          <circle cx="820" cy="230" r="2"/><circle cx="900" cy="210" r="2"/><circle cx="1050" cy="240" r="2"/>
+          <circle cx="1150" cy="210" r="2"/><circle cx="1300" cy="240" r="2"/><circle cx="1500" cy="215" r="2"/>
+          <circle cx="1570" cy="245" r="2"/><circle cx="480" cy="185" r="2"/><circle cx="1000" cy="160" r="2"/>
+        </g>
+      </g>
+    </svg>
+  </div>
+</div>
+<canvas id="bgCanvas" aria-hidden="true"></canvas><!-- stars + particles + lanterns + confetti -->
+<canvas id="fwCanvas" aria-hidden="true"></canvas><!-- fireworks -->
+
+<!-- ══════════════════ NAVIGATION ══════════════════ -->
+<div id="navWrap">
+  <nav id="mainNav" aria-label="Main navigation">
+    <a class="nav-brand" href="#home" data-nav="home" aria-label="Home">
+      <svg viewBox="0 0 40 40" width="26" height="26" aria-hidden="true"><path d="M20 5c-2.5 5-5.5 7.5-5.5 12.5a5.5 5.5 0 0011 0C25.5 12.5 22.5 10 20 5z" fill="#FFD166"/><ellipse cx="20" cy="27" rx="12" ry="4" fill="#FFB703" opacity=".7"/></svg>
+      <span>Dīpāvalī</span>
+    </a>
+    <button id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks">
+      <span aria-hidden="true"></span>
+    </button>
+    <ul id="navLinks">
+      <li><a href="#home" data-nav="home">Home</a></li>
+      <li><a href="#diyas" data-nav="diyas">Diyas</a></li>
+      <li><a href="#fireworks" data-nav="fireworks">Fireworks</a></li>
+      <li><a href="#rangoli" data-nav="rangoli">Rangoli</a></li>
+      <li><a href="#lanterns" data-nav="lanterns">Lanterns</a></li>
+      <li><a href="#greetings" data-nav="greetings">Greetings</a></li>
+      <li><button id="navNight" class="nav-night" type="button">✦ Night Mode</button></li>
+    </ul>
+  </nav>
+</div>
+
+<!-- ══════════════════ MAIN ══════════════════ -->
+<main id="app">
+
+  <!-- ── HERO ── -->
+  <section id="home" class="hero section" aria-label="Diwali celebration">
+    <div class="hero-content">
+      <p class="hero-hindi reveal" lang="hi">शुभ दीपावली</p>
+      <h1 class="hero-title reveal">Happy <span class="gold-text">Diwali</span></h1>
+      <div class="hero-ornament reveal" aria-hidden="true">❖ ✦ ❖</div>
+      <p class="hero-msg reveal">May the festival of lights illuminate your life with happiness,
+        prosperity, and endless possibilities.</p>
+      <div class="hero-actions reveal">
+        <button class="btn btn-gold" data-action="celebrate" type="button">✦ Celebrate Now</button>
+        <button class="btn btn-outline" data-action="light-one" type="button">🕯 Light a Diya</button>
+        <button class="btn btn-outline" data-action="launch-fws" type="button">🎆 Launch Fireworks</button>
+        <button class="btn btn-outline btn-night" data-action="night" type="button">🌙 Enter Diwali Night</button>
+        <button class="btn btn-outline" data-action="goto-greeting" type="button">✉ Create Greeting</button>
+      </div>
+      <div class="hero-stats reveal" aria-live="polite">
+        <div class="stat"><span id="statDiyas" class="stat-num">0</span><span class="stat-label">Diyas Lit</span></div>
+        <div class="stat"><span id="statLanterns" class="stat-num">0</span><span class="stat-label">Lanterns Afloat</span></div>
+        <div class="stat"><span id="statWishes" class="stat-num">0</span><span class="stat-label">Wishes Sent</span></div>
+      </div>
+    </div>
+    <div class="hero-diya-row" aria-hidden="true" id="heroDiyas"></div>
+    <a class="scroll-cue" href="#diyas" aria-label="Scroll to Diyas"><span></span></a>
+  </section>
+
+  <!-- ── DIYAS ── -->
+  <section id="diyas" class="section diya-section" aria-label="Interactive diyas">
+    <header class="section-head reveal">
+      <h2>Light the <span class="gold-text">Diyas</span></h2>
+      <p>Tap each little clay lamp to kindle its flame. Every diya you light adds warmth to the night.</p>
+    </header>
+    <div class="diya-toolbar reveal">
+      <button class="btn btn-gold" data-action="light-all" type="button">✦ Light All</button>
+      <button class="btn btn-outline" data-action="add-diyas" type="button">＋ Add Diyas</button>
+      <button class="btn btn-outline" data-action="reset-diyas" type="button">↺ Reset</button>
+      <button class="btn btn-outline" data-action="light-world" type="button">🌏 Light the World</button>
+      <span class="diya-counter" aria-live="polite">Diyas Lit: <strong id="diyaCount">0</strong></span>
+    </div>
+    <div id="diyaGrid" class="diya-grid" role="list" aria-label="Diya arrangement"></div>
+  </section>
+
+  <!-- ── FIREWORKS ── -->
+  <section id="fireworks" class="section fw-section" aria-label="Fireworks playground">
+    <header class="section-head reveal">
+      <h2>The <span class="gold-text">Fireworks</span> Sky</h2>
+      <p>Click anywhere in the sky to launch a rocket. Double-click for a grand finale burst — or just hold and let the night fill with light.</p>
+    </header>
+    <div class="fw-ground reveal" aria-hidden="true"></div>
+    <div class="fw-panel reveal">
+      <div class="fw-panel-row">
+        <label class="chip-toggle"><input type="checkbox" id="fwAuto" checked><span>Automatic</span></label>
+        <label class="fw-field">Intensity
+          <select id="fwIntensity">
+            <option value="calm">Calm</option>
+            <option value="normal" selected>Normal</option>
+            <option value="festive">Festive</option>
+            <option value="grand">Grand Celebration</option>
+          </select>
+        </label>
+        <label class="fw-field">Hue
+          <select id="fwHue">
+            <option value="auto" selected>Automatic</option>
+            <option value="gold">Golden</option>
+            <option value="rainbow">Rainbow</option>
+            <option value="pink">Celebration Pink</option>
+            <option value="crimson">Crimson</option>
+          </select>
+        </label>
+        <button class="btn btn-gold" id="fwLaunchBtn" type="button">🎆 Launch</button>
+        <button class="btn btn-outline" id="finaleBtn" type="button">💥 Burst of Happiness</button>
+      </div>
+      <p class="fw-hint">Tip — drag across the sky to paint a trail of rockets.</p>
+    </div>
+  </section>
+
+  <!-- ── RANGOLI ── -->
+  <section id="rangoli" class="section rangoli-section" aria-label="Rangoli studio">
+    <header class="section-head reveal">
+      <h2>Rangoli <span class="gold-text">Studio</span></h2>
+      <p>Weave symmetrical mandalas of colour, just like the threshold art of Indian homes.</p>
+    </header>
+    <div class="rangoli-wrap reveal">
+      <div class="rangoli-tools" aria-label="Rangoli tools">
+        <div class="swatches" id="rSwatches" role="radiogroup" aria-label="Colours"></div>
+        <div class="rangoli-controls">
+          <label>Brush <input type="range" id="rBrush" min="2" max="30" value="10" aria-label="Brush size"></label>
+          <label>Symmetry <input type="range" id="rSym" min="1" max="24" value="12" aria-label="Symmetry count"></label>
+          <label>Pattern
+            <select id="rPattern">
+              <option value="solid">Solid</option>
+              <option value="petal">Petal</option>
+              <option value="dots">Dots</option>
+              <option value="glitter">Glitter</option>
+            </select>
+          </label>
+          <div class="rangoli-actions">
+            <button class="btn btn-outline" id="rUndo" type="button">↶ Undo</button>
+            <button class="btn btn-outline" id="rClear" type="button">✕ Clear</button>
+            <button class="btn btn-outline" id="rTemplate" type="button">❖ Templates</button>
+            <button class="btn btn-gold" id="rSave" type="button">⬇ Save PNG</button>
+          </div>
+        </div>
+      </div>
+      <div class="rangoli-canvas-frame ornament-frame">
+        <canvas id="rangoliCanvas" width="640" height="640" aria-label="Rangoli drawing canvas" role="img"></canvas>
+      </div>
+    </div>
+    <div id="templateModal" class="modal" hidden>
+      <div class="modal-card">
+        <h3>Choose a Rangoli Template</h3>
+        <div class="template-grid" id="templateGrid"></div>
+        <button class="modal-close" data-close type="button" aria-label="Close templates">✕</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── LANTERNS ── -->
+  <section id="lanterns" class="section lantern-section" aria-label="Sky lanterns">
+    <header class="section-head reveal">
+      <h2>Floating <span class="gold-text">Lanterns</span></h2>
+      <p>Write a wish, release a glowing paper lantern, and watch it drift into the Diwali sky.</p>
+    </header>
+    <div class="lantern-card reveal ornament-frame">
+      <label class="lantern-label" for="lanternWish">Your wish</label>
+      <input id="lanternWish" type="text" maxlength="80" placeholder="e.g. May my family always shine…">
+      <div class="lantern-actions">
+        <button class="btn btn-gold" data-action="release-lantern" type="button">🏮 Release Lantern</button>
+        <button class="btn btn-outline" data-action="release-five" type="button">🏮🏮 Release Five</button>
+      </div>
+      <p class="lantern-note">Click any lantern in the sky to read the wish it carries.</p>
+    </div>
+  </section>
+
+  <!-- ── GREETINGS ── -->
+  <section id="greetings" class="section greeting-section" aria-label="Greeting generator">
+    <header class="section-head reveal">
+      <h2>Personalised <span class="gold-text">Greetings</span></h2>
+      <p>Craft a glowing Diwali card and share it with the people who light up your life.</p>
+    </header>
+    <div class="greet-wrap reveal">
+      <form id="greetForm" class="greet-form ornament-frame" novalidate>
+        <label>Your name <input id="gSender" type="text" maxlength="30" placeholder="e.g. Aarav" required></label>
+        <label>Recipient's name <input id="gRecipient" type="text" maxlength="30" placeholder="e.g. Meera" required></label>
+        <label>Message <textarea id="gMessage" rows="3" maxlength="140" placeholder="Optional custom message"></textarea></label>
+        <label>Language
+          <select id="gLang">
+            <option value="en" selected>English</option>
+            <option value="hi">हिन्दी</option>
+            <option value="both">Both</option>
+          </select>
+        </label>
+        <label>Style
+          <select id="gStyle">
+            <option value="classic" selected>Classic Gold</option>
+            <option value="royal">Royal Purple</option>
+            <option value="crimson">Crimson Festive</option>
+          </select>
+        </label>
+        <button class="btn btn-gold" type="submit">✦ Generate Greeting</button>
+        <button class="btn btn-outline" type="button" data-action="random-wish">🎲 Surprise Wish</button>
+      </form>
+      <div class="greet-preview-wrap">
+        <canvas id="greetCanvas" width="800" height="1000" aria-label="Generated greeting card preview" role="img"></canvas>
+        <div class="greet-actions">
+          <button class="btn btn-outline" id="gDownload" type="button" disabled>⬇ Download PNG</button>
+          <button class="btn btn-outline" id="gShare" type="button" disabled>↗ Share</button>
+          <button class="btn btn-outline" id="gCopy" type="button" disabled>⧉ Copy Text</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── WISHES MINI ── -->
+  <section class="section wishes-section" aria-label="Wish generator">
+    <header class="section-head reveal">
+      <h2>Wish <span class="gold-text">Generator</span></h2>
+      <p>A little spark of blessing, whenever you need one.</p>
+    </header>
+    <div class="wish-card reveal ornament-frame" aria-live="polite">
+      <p id="wishText" lang="hi">दीपावली की हार्दिक शुभकामनाएँ</p>
+      <button class="btn btn-gold" data-action="random-wish" type="button">✦ New Wish</button>
+    </div>
+  </section>
+
+  <!-- ── HELP / SHORTCUTS ── -->
+  <section class="section help-section" aria-label="Keyboard shortcuts">
+    <header class="section-head reveal">
+      <h2>Keyboard <span class="gold-text">Shortcuts</span></h2>
+    </header>
+    <ul class="shortcut-grid reveal">
+      <li><kbd>F</kbd> Launch fireworks</li>
+      <li><kbd>D</kbd> Light a diya</li>
+      <li><kbd>L</kbd> Release a lantern</li>
+      <li><kbd>C</kbd> Celebration mode</li>
+      <li><kbd>M</kbd> Toggle music</li>
+      <li><kbd>N</kbd> Enter / exit Night Mode</li>
+      <li><kbd>Esc</kbd> Close modal / exit Night Mode</li>
+      <li><kbd>?</kbd> Show this panel</li>
+    </ul>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-ornament" aria-hidden="true">✦ ❖ ✦</div>
+    <p>शुभ दीपावली · Happy Diwali</p>
+    <p class="footer-sub">Crafted with light, canvas &amp; vanilla JavaScript.</p>
+  </footer>
+</main>
+
+<!-- ══════════════════ NIGHT MODE ══════════════════ -->
+<div id="nightMode" hidden>
+  <div id="nightVeil" aria-hidden="true"></div>
+  <div id="nightSky" aria-hidden="true"></div>
+  <div id="nightArch" aria-hidden="true">
+    <svg viewBox="0 0 1600 420" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="archGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0d1330"/><stop offset="100%" stop-color="#060a1c"/>
+        </linearGradient>
+      </defs>
+      <g fill="url(#archGrad)">
+        <path d="M0 420V300q140-160 280-160t280 120q120-180 320-180t320 160q140 60 400 40v340z"/>
+      </g>
+      <g fill="#04081a">
+        <!-- gateway silhouettes with lit arches -->
+        <path d="M250 420V250q0-90 95-90t95 90v170h-30V260q0-65-65-65t-65 65v160z"/>
+        <path d="M345 118l-8-46q8-16 8-30 0 14 8 30z"/>
+        <path d="M1210 420V260q0-95 100-95t100 95v160h-32V268q0-68-68-68t-68 68v152z"/>
+        <path d="M1310 124l-8-48q8-17 8-31 0 14 8 31z"/>
+      </g>
+      <g fill="#FFB703" opacity=".9">
+        <circle cx="297" cy="392" r="3.2"/><circle cx="393" cy="392" r="3.2"/><circle cx="1258" cy="392" r="3.2"/><circle cx="1362" cy="392" r="3.2"/>
+        <circle cx="345" cy="130" r="3"/><circle cx="1310" cy="136" r="3"/>
+      </g>
+      <g fill="#FF7B00" opacity=".85">
+        <ellipse cx="297" cy="400" rx="16" ry="7"/><ellipse cx="393" cy="400" rx="16" ry="7"/>
+        <ellipse cx="1258" cy="400" rx="16" ry="7"/><ellipse cx="1362" cy="400" rx="16" ry="7"/>
+      </g>
+    </svg>
+  </div>
+  <div id="nightDiyas" role="list" aria-label="Night mode diyas"></div>
+  <div id="wishesLayer" aria-hidden="true"></div>
+  <div id="nightCenter" class="night-center" aria-live="polite">
+    <h2 lang="hi">शुभ दीपावली</h2>
+    <p>Happy Diwali — the night is yours.</p>
+  </div>
+  <div id="nightControls" class="night-controls" role="group" aria-label="Night mode controls">
+    <button id="nmExit" class="btn btn-gold nm-btn" type="button">✕ Exit Night</button>
+    <div class="nm-group">
+      <button id="nmFwToggle" class="nm-btn btn btn-outline on" type="button" aria-pressed="true">🎆 Fireworks: On</button>
+      <label class="nm-slider">Intensity
+        <input type="range" id="nmFwIntensity" min="0" max="3" step="1" value="2" aria-label="Fireworks intensity">
+      </label>
+      <button id="nmCeleb" class="nm-btn btn btn-outline" type="button">✦ Celebrate</button>
+    </div>
+    <div class="nm-group">
+      <button id="nmSound" class="nm-btn btn btn-outline on" type="button" aria-pressed="true">🔊 Sound: On</button>
+      <label class="nm-slider">Music <input type="range" id="nmMusicVol" min="0" max="100" value="55" aria-label="Music volume"></label>
+      <label class="nm-slider">Effects <input type="range" id="nmFxVol" min="0" max="100" value="70" aria-label="Effects volume"></label>
+    </div>
+    <div class="nm-group">
+      <button id="nmLightAll" class="nm-btn btn btn-outline" type="button">🕯 Light All</button>
+      <button id="nmLantern" class="nm-btn btn btn-outline" type="button">🏮 Lantern</button>
+      <button id="nmWishOpen" class="nm-btn btn btn-outline" type="button">✎ Send Wish</button>
+    </div>
+  </div>
+  <div id="nmWishBar" class="nm-wish-bar" hidden>
+    <input id="nmWishInput" type="text" maxlength="80" placeholder="Write your wish and let it float to the stars…" aria-label="Your wish">
+    <button id="nmWishSend" class="btn btn-gold" type="button">Release ✦</button>
+    <button id="nmWishClose" class="btn btn-outline" type="button" aria-label="Close wish input">✕</button>
+  </div>
+  <div id="nightHint" class="night-hint" aria-hidden="true">Tap the sky for fireworks · tap diyas to light them</div>
+</div>
+
+<!-- ══════════════════ GLOBAL AUDIO CONTROL ══════════════════ -->
+<div id="audioDock" class="audio-dock" role="group" aria-label="Audio controls">
+  <button id="adMute" class="ad-btn" type="button" aria-pressed="false" aria-label="Master mute">
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path id="adMuteIcon" d="M3 9v6h4l5 5V4L7 9H3z" fill="currentColor"/><path id="adWaves" d="M16 8a5 5 0 010 8M18.5 5.5a9 9 0 010 13" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+  </button>
+  <button id="adMusic" class="ad-btn" type="button" aria-pressed="false" aria-label="Toggle music">♪</button>
+  <button id="adFx" class="ad-btn on" type="button" aria-pressed="true" aria-label="Toggle sound effects">✧</button>
+</div>
+
+<!-- toast -->
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script src="js/utils.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/fireworks.js"></script>
+<script src="js/particles.js"></script>
+<script src="js/diya.js"></script>
+<script src="js/lanterns.js"></script>
+<script src="js/rangoli.js"></script>
+<script src="js/greetings.js"></script>
+<script src="js/night-mode.js"></script>
+<script src="js/interactions.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
